@@ -12,3 +12,13 @@
   Cheers!
   
   aaron (Aza's Built to Code)
+
+  
+  ## Code
+  [src/main.cpp](src/main.cpp)
+  
+  ## Model .STL file
+  [SG90 Arm Angle 10.stl](models/SG90%20Arm%20Angle%2010.stl)
+  <!-- https://github.com/aaronse/ServoPixelDisplay/blob/main/models/SG90%20Arm%20Angle%2010.stl -->
+  
+  
