@@ -26,3 +26,7 @@
 
   Backside view of the rats nest wiring.  Note the WAGO connectors, 16awg for power, and skinny wiring for data lines.  v1.0 was (under) powered by a 5v 5amp Alitov power adapter.
   ![WTD v1.0 backside rats nest](assets/wtd1.0_backside_rats_nest.jpg)
+
+  ## Related work/projects
+  
+- https://github.com/julienp17/WaveMirror (reco by https://github.com/scorto)
