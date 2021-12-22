@@ -24,47 +24,57 @@
 #include <Wire.h>
 #include <Adafruit_PWMServoDriver.h>
 
-// Servo driver I2C Address definitions
-Adafruit_PWMServoDriver pwmDrivers[] =
-{
-   Adafruit_PWMServoDriver(0x40),
-   Adafruit_PWMServoDriver(0x41),
-   Adafruit_PWMServoDriver(0x42)
-};
-
-#define DRIVER_COUNT 3
-
-// Depending on your servo make, the pulse width min and max may vary, you 
-// want these to be as small/large as possible without hitting the hard stop
-// for max range. You'll have to tweak them as necessary to match the servos
-// you have!
-
-#define SERVOMIN  150 // This is the 'minimum' pulse length count (out of 4096)
-#define SERVOMAX  600 // This is the 'maximum' pulse length count (out of 4096)
-#define USMIN  600    // This is the rounded 'minimum' microsecond length based on the minimum pulse of 150
-#define USMAX  2400   // This is the rounded 'maximum' microsecond length based on the maximum pulse of 600
-
-#define SERVO_FREQ 60 // Analog servos run at ~60 Hz updates.  Try 50 (original 
-                      // sample value) if your servos have a seizure using 60.
-
-#define SERVO_COUNT 16
-
-#define MIN_SERVO_ANGLE 0
-#define MAX_SERVO_ANGLE 60
-#define DEFAULT_SERVO_ANGLE 30
-
-// Servo panel layout
-#define TILESET_WIDTH 4
-#define TILESET_HEIGHT 4
-#define CANVAS_WIDTH 12
-#define CANVAS_HEIGHT 4
-#define PIXEL_COUNT CANVAS_WIDTH * CANVAS_HEIGHT
-
 // Animation modes
 #define MODE_NONE 0
 #define MODE_WAVE 1
 #define MODE_INVERT 2
-int _mode = 0;
+
+// NOTE: EDIT FOR YOUR BUILD.
+int _mode = MODE_WAVE; // Starts with WAVE mode, edit to MODE_NONE if you don't want WTD to be move until prompted.
+
+// NOTE: EDIT FOR YOUR BUILD
+// - Should be set to number of PCA9685 drivers used. Current code assumes each 
+//   driver is connected to 16 servos. So, should define as total servo count 
+//   divided by 16, e.g. 9 for 144 == 12x12 servo build.
+#define DRIVER_COUNT 3
+
+// NOTE: EDIT FOR YOUR BUILD
+// - Short: Servo driver I2C Address definitions.
+// - Long: pwmDrivers[] defines a list of PCA9685 servo drivers. Each PCA9685 
+//   driver has a unique I2C address, starting at 0x40 (you solder during build
+//   assembly). The code uses this list to figure out which PCA9685 servo 
+//   driver is connected to a given servo, enabling the code to send commands 
+//   to a specific driver. So, for example, with a 144 servo build, 9 entries 
+//   would need to be defined, each entry with a unique I2C address based on
+//   what was soldered during WTD assembly. See "Assumptions:" content to 
+//   understand tileset layout and wiring sequence assumed by the code.
+Adafruit_PWMServoDriver pwmDrivers[] =
+{
+   Adafruit_PWMServoDriver(0x40), // Ensure the address sequence here matches your Build's tileset layout.  Left to right, row by row, starting from top row.
+   Adafruit_PWMServoDriver(0x41),
+   Adafruit_PWMServoDriver(0x42)
+};
+
+// NOTE: EDIT FOR YOUR BUILD
+#define CANVAS_WIDTH 12   // Servos per row, think of as display pixel width.
+#define CANVAS_HEIGHT 4   // Number of rows, think of as display pixel height. 
+
+// NOTE: *MAYBE* EDIT FOR YOUR BUILD, if you're not using Miuzei SG90 servos.
+// - Depending on your servo make, the pulse width min and max may vary, you 
+//   want these to be as small/large as possible without hitting the hard stop
+//   for max range. You'll have to tweak them as necessary to match the servos
+//   you have!  The following worked for my Miuzei SG90 servos.
+#define SERVOMIN  150 // - This is the 'minimum' pulse length count (out of 4096)
+#define SERVOMAX  600 // - This is the 'maximum' pulse length count (out of 4096)
+#define SERVO_FREQ 60 // - Analog servos run at ~60 Hz updates.  Try 50 (original 
+                      //   sample value) if your servos have a seizure using 60.
+
+#define PIXEL_COUNT CANVAS_WIDTH * CANVAS_HEIGHT
+#define TILESET_WIDTH 4   
+#define TILESET_HEIGHT 4
+
+#define MIN_SERVO_ANGLE 0
+#define MAX_SERVO_ANGLE 60
 
 // Menu variable to pick each menu item(or display the menu)
 int _menu = -1;

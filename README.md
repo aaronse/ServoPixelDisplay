@@ -16,8 +16,9 @@
 
   
   ## Code
-  [src/main.cpp](src/main.cpp)
-  
+  [src/wtd_1/wtd_1.ino](src/wtd_1/wtd_1.ino)
+  - Displays Wave pattern by default.  Pause/Resume by sending "1" via Serial Monitor.  Edit _mode to change default start mode.
+
   ## Model .STL file
   [SG90 Arm Angle 10.stl](models/SG90%20Arm%20Angle%2010.stl)
   <!-- https://github.com/aaronse/ServoPixelDisplay/blob/main/models/SG90%20Arm%20Angle%2010.stl -->
